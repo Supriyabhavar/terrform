@@ -2,7 +2,7 @@ pipeline {
     agent any
       
     parameters {
-        choice choices: ['debian_amd64', 'ubuntu_amd64', 'centos_amd64'], description: 'Choose your favorite distribution', name: 'dist'
+        choice choices: ['apply', 'destroy'], description: 'Choose your favorite distribution', name: 'action'
     }
 
     stages {
@@ -20,16 +20,11 @@ pipeline {
                 }
             }
         }
-        stage('apply') {
+        stage('deploy') {
             steps {
                 withAWS(credentials: 'Aws-creds', region: 'ap-south-1'){
-                    sh 'terraform apply -auto-approve'
+                    sh 'terraform $action -auto-approve'
                 }
-            }
-        }
-        stage('parameter') {
-            steps {
-                sh 'echo $dist'
             }
         }
     }
