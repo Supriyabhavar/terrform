@@ -4,17 +4,23 @@ pipeline {
     stages {
         stage('init') {
             steps {
-                sh 'terraform init'
+                withAWS(credentials: 'Aws-creds', region: 'ap-south-1'){
+                    sh 'terraform init'
+                }
             }
         }
-        stage('pull') {
-            steps {
-                sh 'terraform pull'
+        stage('plan') {
+             steps {
+                withAWS(credentials: 'Aws-creds', region: 'ap-south-1'){
+                    sh 'terraform plan'
+                }
             }
         }
         stage('apply') {
             steps {
-                sh 'terraform apply'
+                withAWS(credentials: 'Aws-creds', region: 'ap-south-1'){
+                    sh 'terraform apply'
+                }
             }
         }
     }
