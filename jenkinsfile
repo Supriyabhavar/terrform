@@ -26,7 +26,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'Aws-creds', region: 'ap-south-1'){
                     sh 'terraform $action -auto-approve'
-                    sh "echo $input"
+                    sh 'echo $input'
                 }
             }
         }
