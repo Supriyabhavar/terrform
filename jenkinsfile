@@ -1,0 +1,21 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('init') {
+            steps {
+                sh 'terraform init'
+            }
+        }
+        stage('pull') {
+            steps {
+                sh 'terraform pull'
+            }
+        }
+        stage('apply') {
+            steps {
+                sh 'terraform apply'
+            }
+        }
+    }
+}
