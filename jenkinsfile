@@ -1,5 +1,8 @@
 pipeline {
     agent any
+      parameters {
+    choice choices: ['debian_amd64', 'ubuntu_amd64', 'centos_amd64'], description: 'Choose your favorite distribution', name: 'dist'
+  }
 
     stages {
         stage('init') {
