@@ -19,7 +19,7 @@ pipeline {
         stage('apply') {
             steps {
                 withAWS(credentials: 'Aws-creds', region: 'ap-south-1'){
-                    sh 'terraform apply'
+                    sh 'terraform apply -auto-approve'
                 }
             }
         }
