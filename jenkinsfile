@@ -5,6 +5,7 @@ pipeline {
         choice choices: ['apply', 'destroy'], description: 'Choose your favorite distribution', name: 'action'
 
         choice choices: ['Yes', 'No'], description: 'Choose your favorite distribution', name: 'input'
+          string(name: 'ENVIRONMENT', defaultValue: 'dev', description: 'The environment to deploy to')
     }
 
     stages {
@@ -27,6 +28,7 @@ pipeline {
                 withAWS(credentials: 'Aws-creds', region: 'ap-south-1'){
                     sh 'terraform $action -auto-approve'
                     sh 'echo $input'
+                    sh 'echo $ENVIRONMENT'
                 }
             }
         }
